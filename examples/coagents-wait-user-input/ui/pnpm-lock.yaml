@@ -22,8 +22,8 @@ importers:
         specifier: 1.8.3
         version: 1.8.3(@browserbasehq/sdk@2.2.0)(@browserbasehq/stagehand@1.12.0(@playwright/test@1.50.1)(deepmerge@4.3.1)(dotenv@16.4.7)(openai@4.85.1(ws@8.18.0)(zod@3.23.8))(zod@3.23.8))(@ibm-cloud/watsonx-ai@1.5.0(@langchain/core@0.3.39(openai@4.85.1(ws@8.18.0)(zod@3.23.8))))(axios@1.7.9)(google-auth-library@8.9.0)(ibm-cloud-sdk-core@5.1.2)(ignore@5.3.2)(jsonwebtoken@9.0.2)(playwright@1.50.1)(ws@8.18.0)
       '@copilotkit/runtime-client-gql':
-        specifier: 1.8.3
-        version: 1.8.3(graphql@16.9.0)(react@19.0.0)
+        specifier: 1.10.6
+        version: 1.10.6(graphql@16.9.0)(react@19.0.0)
       '@copilotkit/shared':
         specifier: 1.8.3
         version: 1.8.3
@@ -105,6 +105,9 @@ packages:
       graphql:
         optional: true
 
+  '@ag-ui/core@0.0.37':
+    resolution: {integrity: sha512-7bmjPn1Ol0Zo00F+MrPr0eOwH4AFZbhmq/ZMhCsrMILtVYBiBLcLU9QFBpBL3Zm9MCHha8b79N7JE2FzwcMaVA==}
+
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
@@ -142,6 +145,11 @@ packages:
     peerDependencies:
       react: ^18 || ^19 || ^19.0.0-rc
 
+  '@copilotkit/runtime-client-gql@1.10.6':
+    resolution: {integrity: sha512-oLX8mjppVvQCWfquW9A0500hYVNxM4X/mtt76SEvfGUb2KsNQ4j2HOCzpmtm85MeLproC+f9738wLwRueLliZg==}
+    peerDependencies:
+      react: ^18 || ^19 || ^19.0.0-rc
+
   '@copilotkit/runtime-client-gql@1.8.3':
     resolution: {integrity: sha512-eVupU48WaRYUjuMSgKbUcOtlSiTeriT+I3HIl3d4/Hpg3eCj0i9Zkd6M4oByOkfZY0vFMKh46I2RiVFU/PMWBA==}
     peerDependencies:
@@ -149,6 +157,9 @@ packages:
 
   '@copilotkit/runtime@1.8.3':
     resolution: {integrity: sha512-GFWzln5INCJodchIl3dnhCWwjPrTqAppEKMsCs/CFChcUGdIxPkUC4PGa/4xJFeAHkxD0NOg2byXFmCG0rmQHg==}
+
+  '@copilotkit/shared@1.10.6':
+    resolution: {integrity: sha512-56Rltf4fDBqCpl1ZXARypt5NdE4LTg3tGPPLurZpgPmm31Lv5EAHpfjC7I55vt9A0mXWlTCHtCrpiaAlTyzGJw==}
 
   '@copilotkit/shared@1.8.3':
     resolution: {integrity: sha512-xNmmMZjygehB+5iZbheldIitnEt+1bA25E7hNdnobSb9ScSONEu0eJPb6yhWu0j588JfBgCGZOJ5A2SWwr/6Jw==}
@@ -4081,6 +4092,11 @@ snapshots:
     optionalDependencies:
       graphql: 16.9.0
 
+  '@ag-ui/core@0.0.37':
+    dependencies:
+      rxjs: 7.8.1
+      zod: 3.23.8
+
   '@alloc/quick-lru@5.2.0': {}
 
   '@anthropic-ai/sdk@0.27.3':
@@ -4161,6 +4177,17 @@ snapshots:
       - graphql
       - react-dom
       - supports-color
+
+  '@copilotkit/runtime-client-gql@1.10.6(graphql@16.9.0)(react@19.0.0)':
+    dependencies:
+      '@copilotkit/shared': 1.10.6
+      '@urql/core': 5.0.6(graphql@16.9.0)
+      react: 19.0.0
+      untruncate-json: 0.0.1
+      urql: 4.1.0(@urql/core@5.0.6(graphql@16.9.0))(react@19.0.0)
+    transitivePeerDependencies:
+      - encoding
+      - graphql
 
   '@copilotkit/runtime-client-gql@1.8.3(graphql@16.9.0)(react@19.0.0)':
     dependencies:
@@ -4337,6 +4364,18 @@ snapshots:
       - word-extractor
       - ws
       - youtubei.js
+
+  '@copilotkit/shared@1.10.6':
+    dependencies:
+      '@ag-ui/core': 0.0.37
+      '@segment/analytics-node': 2.1.2
+      chalk: 4.1.2
+      graphql: 16.9.0
+      uuid: 10.0.0
+      zod: 3.23.8
+      zod-to-json-schema: 3.23.5(zod@3.23.8)
+    transitivePeerDependencies:
+      - encoding
 
   '@copilotkit/shared@1.8.3':
     dependencies:
