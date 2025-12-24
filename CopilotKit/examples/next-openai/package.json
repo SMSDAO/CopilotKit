@@ -20,7 +20,7 @@
     "@heroicons/react": "^2.0.18",
     "@langchain/anthropic": "^0.3.5",
     "@langchain/community": "^0.3.29",
-    "@langchain/core": "^0.3.38",
+    "@langchain/core": "^0.3.80",
     "@langchain/google-gauth": "^0.1.0",
     "@langchain/openai": "^0.4.2",
     "clsx": "^1.2.1",
