@@ -9,7 +9,7 @@
   "dependencies": {
     "@copilotkit/runtime": "workspace:*",
     "@copilotkit/shared": "workspace:*",
-    "express": "^4.19.2",
+    "express": "^4.22.0",
     "openai": "^4.85.1",
     "dotenv": "^16.4.7"
   },
