@@ -46,7 +46,7 @@ social-os/
 ## Tech Stack
 
 ### Frontend
-- **Next.js 15**: React framework with App Router
+- **Next.js 15.2.6**: React framework with App Router (security patched)
 - **TypeScript**: Type-safe development
 - **Tailwind CSS**: Utility-first styling
 - **CopilotKit**: AI integration framework
