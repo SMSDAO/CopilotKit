@@ -118,7 +118,7 @@ export default function Home() {
   });
 
   const handlePostCreated = (newPost: Post) => {
-    setPosts([newPost, ...posts]);
+    setPosts((prevPosts) => [newPost, ...prevPosts]);
   };
 
   if (loading) {

@@ -33,6 +33,26 @@ export async function query(text: string, params?: any[]) {
   }
 }
 
+// Helper function to execute multiple queries in a transaction
+export async function transaction<T>(
+  callback: (client: any) => Promise<T>
+): Promise<T> {
+  const pool = getPool();
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const result = await callback(client);
+    await client.query('COMMIT');
+    return result;
+  } catch (error) {
+    await client.query('ROLLBACK');
+    console.error('transaction error:', error);
+    throw error;
+  } finally {
+    client.release();
+  }
+}
+
 // Close the pool
 export async function closePool() {
   if (pool) {

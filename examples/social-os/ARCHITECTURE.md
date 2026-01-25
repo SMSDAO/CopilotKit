@@ -43,7 +43,7 @@ AiCopilot Social OS is designed with a modular, extensible architecture that sup
 ### 1. Frontend Layer (Next.js + React)
 
 **Technology Stack:**
-- Next.js 15 with App Router
+- Next.js 16.1.4 with App Router
 - React 19
 - TypeScript
 - Tailwind CSS

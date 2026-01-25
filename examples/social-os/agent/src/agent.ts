@@ -30,8 +30,8 @@ export const AgentStateAnnotation = Annotation.Root({
 
 export type AgentState = typeof AgentStateAnnotation.State;
 
-// Tool: Generate post content in user's style
-const generatePostContent = tool(
+// Tool: Generate post content guidance in user's style
+const generateContentGuidance = tool(
   async ({ topic, tone, length }) => {
     // In a production system, this would use user's learned patterns
     const toneMap: Record<string, string> = {
@@ -53,8 +53,8 @@ const generatePostContent = tool(
     return `Generate a social media post about "${topic}". ${guidance}. Target length: approximately ${targetLength} characters. Make it engaging and authentic.`;
   },
   {
-    name: "generatePostContent",
-    description: "Generate social media post content based on topic, tone, and length preferences",
+    name: "generateContentGuidance",
+    description: "Get guidance for generating social media post content based on topic, tone, and length preferences",
     schema: z.object({
       topic: z.string().describe("The topic or theme for the post"),
       tone: z.enum(["casual", "professional", "creative", "humorous"]).describe("The tone of the post"),
@@ -102,7 +102,7 @@ const generateImagePrompt = tool(
 );
 
 // Collect all tools
-const tools = [generatePostContent, suggestPostIdeas, generateImagePrompt];
+const tools = [generateContentGuidance, suggestPostIdeas, generateImagePrompt];
 
 // Main chat node
 async function chat_node(state: AgentState, config: RunnableConfig) {

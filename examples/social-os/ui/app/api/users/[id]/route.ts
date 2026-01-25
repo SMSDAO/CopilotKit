@@ -5,10 +5,10 @@ import { User, ApiResponse } from '@/lib/types';
 // GET /api/users/[id] - Get a single user
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
     const result = await query(
       'SELECT id, username, display_name, email, bio, avatar_url, created_at, updated_at FROM users WHERE id = $1',
       [id]

@@ -9,7 +9,7 @@ Successfully implemented the initial phase of the **AiCopilot Social OS** platfo
 ### 1. Complete Full-Stack Application
 
 **Frontend (Next.js + React + TypeScript)**
-- Modern, responsive UI built with Next.js 15 and React 19
+- Modern, responsive UI built with Next.js 16.1.4 and React 19
 - Tailwind CSS for styling
 - CopilotKit integration for AI features
 - 6+ custom React components

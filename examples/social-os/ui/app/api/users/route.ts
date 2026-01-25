@@ -1,13 +1,39 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { query } from '@/lib/db';
+import { query, transaction } from '@/lib/db';
 import { User, CreateUserInput, ApiResponse } from '@/lib/types';
 
 // GET /api/users - List all users
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const limit = parseInt(searchParams.get('limit') || '50');
-    const offset = parseInt(searchParams.get('offset') || '0');
+    
+    // Validate and clamp limit parameter
+    const rawLimit = searchParams.get('limit');
+    let limit = 50; // default
+    if (rawLimit !== null) {
+      const parsedLimit = parseInt(rawLimit, 10);
+      if (isNaN(parsedLimit) || parsedLimit < 1) {
+        return NextResponse.json<ApiResponse<null>>(
+          { success: false, error: 'Invalid "limit" parameter' },
+          { status: 400 }
+        );
+      }
+      limit = Math.min(parsedLimit, 100); // max 100
+    }
+    
+    // Validate and clamp offset parameter
+    const rawOffset = searchParams.get('offset');
+    let offset = 0; // default
+    if (rawOffset !== null) {
+      const parsedOffset = parseInt(rawOffset, 10);
+      if (isNaN(parsedOffset) || parsedOffset < 0) {
+        return NextResponse.json<ApiResponse<null>>(
+          { success: false, error: 'Invalid "offset" parameter' },
+          { status: 400 }
+        );
+      }
+      offset = parsedOffset;
+    }
 
     const result = await query(
       'SELECT id, username, display_name, email, bio, avatar_url, created_at, updated_at FROM users ORDER BY created_at DESC LIMIT $1 OFFSET $2',
@@ -43,28 +69,33 @@ export async function POST(request: NextRequest) {
     // Generate avatar URL with properly encoded username
     const avatar_url = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(username)}`;
 
-    // Insert user
-    const userResult = await query(
-      'INSERT INTO users (username, display_name, email, bio, avatar_url) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [username, display_name, email, bio || null, avatar_url]
-    );
+    // Use transaction to ensure user and agent are created atomically
+    const user = await transaction(async (client) => {
+      // Insert user
+      const userResult = await client.query(
+        'INSERT INTO users (username, display_name, email, bio, avatar_url) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+        [username, display_name, email, bio || null, avatar_url]
+      );
 
-    const user = userResult.rows[0];
+      const newUser = userResult.rows[0];
 
-    // Create agent for the user
-    const agentName = `${display_name}'s Agent`;
-    await query(
-      `INSERT INTO user_agents (user_id, agent_name, personality_traits, writing_style, preferred_topics, generation_settings)
-       VALUES ($1, $2, $3, $4, $5, $6)`,
-      [
-        user.id,
-        agentName,
-        JSON.stringify({ traits: ['helpful', 'creative', 'friendly'] }),
-        JSON.stringify({ tone: 'casual', length: 'medium' }),
-        ['AI', 'Technology', 'Social Media'],
-        JSON.stringify({ model: 'gpt-4', temperature: 0.7 }),
-      ]
-    );
+      // Create agent for the user
+      const agentName = `${display_name}'s Agent`;
+      await client.query(
+        `INSERT INTO user_agents (user_id, agent_name, personality_traits, writing_style, preferred_topics, generation_settings)
+         VALUES ($1, $2, $3, $4, $5, $6)`,
+        [
+          newUser.id,
+          agentName,
+          JSON.stringify({ traits: ['helpful', 'creative', 'friendly'] }),
+          JSON.stringify({ tone: 'casual', length: 'medium' }),
+          ['AI', 'Technology', 'Social Media'],
+          JSON.stringify({ model: 'gpt-4', temperature: 0.7 }),
+        ]
+      );
+
+      return newUser;
+    });
 
     return NextResponse.json<ApiResponse<User>>(
       { success: true, data: user },

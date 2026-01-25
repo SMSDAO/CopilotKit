@@ -19,7 +19,7 @@ AiCopilot Social OS is an innovative social platform that combines traditional s
 - ✅ **Public & Private Posts**: Share publicly or keep posts private
 - ✅ **AI Agent per User**: Each user has a dedicated AI agent for:
   - Text generation in user's style
-  - Image generation capabilities
+  - Image prompt generation for external tools
   - Profile representation and assistance
 - ✅ **PostgreSQL Database**: Robust data storage for users, posts, and agent data
 - ✅ **Responsive UI**: Cross-device interface optimized for desktop and mobile
@@ -64,7 +64,7 @@ social-os/
 
 ### AI/ML
 - **OpenAI GPT-4**: Text generation
-- **DALL-E 3**: Image generation
+- **Image Prompt Generation**: Optimized prompts for DALL-E/Midjourney
 - **LangChain**: LLM framework
 
 ## Prerequisites

@@ -6,8 +6,35 @@ import { Post, CreatePostInput, ApiResponse } from '@/lib/types';
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const limit = parseInt(searchParams.get('limit') || '50');
-    const offset = parseInt(searchParams.get('offset') || '0');
+    
+    // Validate and clamp limit parameter
+    const rawLimit = searchParams.get('limit');
+    let limit = 50; // default
+    if (rawLimit !== null) {
+      const parsedLimit = parseInt(rawLimit, 10);
+      if (isNaN(parsedLimit) || parsedLimit < 1) {
+        return NextResponse.json<ApiResponse<null>>(
+          { success: false, error: 'Invalid "limit" parameter' },
+          { status: 400 }
+        );
+      }
+      limit = Math.min(parsedLimit, 100); // max 100
+    }
+    
+    // Validate and clamp offset parameter
+    const rawOffset = searchParams.get('offset');
+    let offset = 0; // default
+    if (rawOffset !== null) {
+      const parsedOffset = parseInt(rawOffset, 10);
+      if (isNaN(parsedOffset) || parsedOffset < 0) {
+        return NextResponse.json<ApiResponse<null>>(
+          { success: false, error: 'Invalid "offset" parameter' },
+          { status: 400 }
+        );
+      }
+      offset = parsedOffset;
+    }
+    
     const userId = searchParams.get('user_id');
     const includePrivate = searchParams.get('include_private') === 'true';
 
@@ -31,9 +58,10 @@ export async function GET(request: NextRequest) {
       params.push(userId);
       paramIndex++;
       
-      if (!includePrivate) {
-        queryText += ' AND p.is_public = true';
-      }
+      // NOTE: In a production app with authentication, you should verify
+      // that the authenticated user matches userId before returning private posts.
+      // For now, we ignore include_private for security and only show public posts.
+      queryText += ' AND p.is_public = true';
     } else {
       // Only show public posts on main timeline
       queryText += ' AND p.is_public = true';
@@ -63,6 +91,10 @@ export async function POST(request: NextRequest) {
     const body: CreatePostInput = await request.json();
     const { user_id, content, is_public, image_url, ai_generated } = body;
 
+    // NOTE: In a production app, user_id should be derived from the authenticated
+    // session rather than trusting the client. This prevents impersonation attacks.
+    // For demo purposes, we accept the user_id from the request body.
+    
     if (!user_id || !content) {
       return NextResponse.json<ApiResponse<null>>(
         { success: false, error: 'Missing required fields' },
