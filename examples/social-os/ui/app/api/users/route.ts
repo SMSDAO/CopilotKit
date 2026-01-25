@@ -40,8 +40,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Generate avatar URL
-    const avatar_url = `https://api.dicebear.com/7.x/avataaars/svg?seed=${username}`;
+    // Generate avatar URL with properly encoded username
+    const avatar_url = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(username)}`;
 
     // Insert user
     const userResult = await query(

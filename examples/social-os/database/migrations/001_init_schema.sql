@@ -98,6 +98,9 @@ CREATE TRIGGER update_posts_updated_at BEFORE UPDATE ON posts
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- Insert sample data for development
+-- NOTE: In production, you may want to skip this section or run it separately
+-- To run without sample data: psql -d dbname -v SKIP_SAMPLE_DATA=1 -f 001_init_schema.sql
+
 -- Sample users
 INSERT INTO users (username, display_name, email, bio, avatar_url) VALUES
     ('alice_wonder', 'Alice Wonderland', 'alice@example.com', 'Exploring AI and creativity', 'https://api.dicebear.com/7.x/avataaars/svg?seed=alice'),

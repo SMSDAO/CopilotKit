@@ -108,7 +108,7 @@ export default function Home() {
             <img 
               src={args.imageUrl} 
               alt={args.prompt} 
-              className="rounded-lg max-w-sm"
+              className="rounded-lg max-w-full md:max-w-md lg:max-w-lg"
             />
           )}
           <p className="text-sm text-gray-600 mt-2">{args.prompt}</p>

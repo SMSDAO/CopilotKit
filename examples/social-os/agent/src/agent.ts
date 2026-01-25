@@ -106,9 +106,11 @@ const tools = [generatePostContent, suggestPostIdeas, generateImagePrompt];
 
 // Main chat node
 async function chat_node(state: AgentState, config: RunnableConfig) {
+  // Use environment variable for model configuration, default to gpt-4o
+  const modelName = process.env.OPENAI_MODEL || "gpt-4o";
   const model = new ChatOpenAI({ 
     temperature: 0.7, 
-    model: "gpt-4o",
+    model: modelName,
     modelKwargs: {
       response_format: { type: "text" }
     }
