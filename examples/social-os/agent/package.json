@@ -1,0 +1,25 @@
+{
+  "name": "social-os-agent",
+  "version": "1.0.0",
+  "description": "AI Agent backend for Social OS platform",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx @langchain/langgraph-cli dev --port 8123"
+  },
+  "keywords": ["ai", "agent", "social", "copilotkit"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@copilotkit/sdk-js": "^1.5.13",
+    "@langchain/anthropic": "^0.3.8",
+    "@langchain/core": "^0.3.18",
+    "@langchain/langgraph": "^0.4.0",
+    "@langchain/openai": "^0.3.14",
+    "langchain": "^1.0.0",
+    "zod": "^3.23.8"
+  }
+}
