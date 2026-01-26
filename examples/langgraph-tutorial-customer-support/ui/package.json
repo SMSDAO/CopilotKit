@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@copilotkit/react-core": "^1.5.20",
-    "@copilotkit/react-ui": "^1.5.20",
+    "@copilotkit/react-ui": "^1.51.0",
     "@copilotkit/runtime": "^1.5.20",
     "next": "15.0.7",
     "openai": "^4.85.1",
