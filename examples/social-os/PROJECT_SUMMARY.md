@@ -11,7 +11,42 @@
 
 ## Overview
 
-Successfully implemented a comprehensive admin authentication system for the Social OS platform, a modern social media-style React application that was already present in the repository. The implementation includes secure password management, session-based authentication, admin dashboard, and production-ready Vercel deployment configuration.
+Successfully implemented a comprehensive admin authentication system for the Social OS platform, a modern social media-style React application that was already present in the repository. The implementation includes secure password management, session-based authentication, admin dashboard, production-ready Vercel deployment configuration, and **automated run scripts for async system startup**.
+
+---
+
+## Latest Update: Automated Async System
+
+### New Feature: One-Command Startup
+
+Created automated bash scripts to run the entire Social OS platform asynchronously in the background, matching the documentation's recommended workflow.
+
+**New Scripts:**
+- `start.sh` - Starts all services (database, agent, UI) in the background
+- `stop.sh` - Stops all running services
+- `status.sh` - Shows status and recent logs of all services
+
+**Usage:**
+```bash
+cd examples/social-os
+./start.sh    # Start everything
+./status.sh   # Check status
+./stop.sh     # Stop everything
+```
+
+**Features:**
+- ✅ Automatic database startup with Docker
+- ✅ Database migrations applied automatically
+- ✅ AI agent backend runs in background (port 8123)
+- ✅ UI frontend runs in background (port 3000)
+- ✅ Process management with PID files
+- ✅ Centralized logging (logs/agent.log, logs/ui.log)
+- ✅ Automatic dependency installation
+- ✅ Environment file validation and warnings
+- ✅ Health checks for database readiness
+- ✅ Color-coded status output
+
+This eliminates the need to manually run services in separate terminals and matches the documentation's recommended async workflow.
 
 ---
 
