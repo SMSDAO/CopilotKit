@@ -20,9 +20,6 @@ CREATE TRIGGER update_admins_updated_at BEFORE UPDATE ON admins
 -- Create the initial admin account via a separate, secure setup step
 -- (for example, a CLI or one-time script that accepts a strong password).
 
--- Index for faster email lookup during authentication
-CREATE INDEX idx_admins_email ON admins(email);
-
 -- Admin Sessions Table (for session management)
 CREATE TABLE IF NOT EXISTS admin_sessions (
 
