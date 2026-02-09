@@ -43,7 +43,9 @@ psql "your-connection-string-here" -f database/migrations/002_add_admin_auth.sql
 ## Step 2: Prepare Your Repository
 
 1. Ensure your code is pushed to GitHub
-2. Verify the `vercel.json` file exists in the `examples/social-os/` directory
+2. Verify the `vercel.json` file exists in the `examples/social-os/ui/` directory
+
+**Note:** The `vercel.json` configuration file is located in the `ui/` directory and is configured for when `examples/social-os/ui` is set as the Vercel root directory.
 
 ## Step 3: Import Project to Vercel
 

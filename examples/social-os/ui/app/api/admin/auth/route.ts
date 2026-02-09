@@ -131,6 +131,14 @@ export async function POST(request: NextRequest) {
         );
       }
 
+      // Prevent using the default password
+      if (newPassword === 'admin123') {
+        return NextResponse.json(
+          { success: false, message: 'Cannot use the default password. Please choose a different password.' },
+          { status: 400 }
+        );
+      }
+
       await updateAdminPassword(admin.id, newPassword);
 
       return NextResponse.json({

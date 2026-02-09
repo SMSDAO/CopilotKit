@@ -34,12 +34,12 @@ export async function verifyPassword(password: string, hash: string): Promise<bo
 }
 
 /**
- * Generate a random session token
+ * Generate a cryptographically secure random session token
  */
 export function generateSessionToken(): string {
-  return Math.random().toString(36).substring(2, 15) + 
-         Math.random().toString(36).substring(2, 15) +
-         Math.random().toString(36).substring(2, 15);
+  // Use Node.js crypto for secure random bytes
+  const crypto = require('crypto');
+  return crypto.randomBytes(32).toString('hex');
 }
 
 /**
