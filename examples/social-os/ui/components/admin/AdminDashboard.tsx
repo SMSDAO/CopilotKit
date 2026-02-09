@@ -183,6 +183,7 @@ export function AdminDashboard() {
             <a
               href="/"
               target="_blank"
+              rel="noopener noreferrer"
               className="p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-all"
             >
               <h3 className="font-medium text-gray-900 mb-1">View Main Site</h3>
