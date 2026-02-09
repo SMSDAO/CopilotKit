@@ -16,15 +16,15 @@ CREATE TABLE IF NOT EXISTS admins (
 CREATE TRIGGER update_admins_updated_at BEFORE UPDATE ON admins
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
--- Insert default admin account (crypto98@icloud.com with password: admin123)
--- Password hash for 'admin123' using bcrypt (10 rounds)
--- This will be changed on first login
-INSERT INTO admins (email, password_hash, first_login) VALUES
-    ('crypto98@icloud.com', '$2a$10$8K1p/a0dL3.I93OBIkjode.E0XOjqkXYrZSBjH3WTjLYY0w5rLMLW', true)
-ON CONFLICT (email) DO NOTHING;
+-- Note: Do not seed a default admin with a hardcoded password in migrations.
+-- Create the initial admin account via a separate, secure setup step
+-- (for example, a CLI or one-time script that accepts a strong password).
 
 -- Index for faster email lookup during authentication
 CREATE INDEX idx_admins_email ON admins(email);
+
+-- Admin Sessions Table (for session management)
+CREATE TABLE IF NOT EXISTS admin_sessions (
 
 -- Admin Sessions Table (for session management)
 CREATE TABLE IF NOT EXISTS admin_sessions (
