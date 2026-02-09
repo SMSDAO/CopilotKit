@@ -8,7 +8,6 @@ import {
   FileText, 
   Activity, 
   LogOut, 
-  TrendingUp,
   Database,
   Sparkles
 } from "lucide-react";
