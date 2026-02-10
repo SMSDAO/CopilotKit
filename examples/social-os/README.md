@@ -76,7 +76,43 @@ social-os/
 
 ## Getting Started
 
-### 1. Clone and Install
+### Quick Start (Automated)
+
+The fastest way to run the entire platform:
+
+```bash
+# Navigate to the social-os directory
+cd examples/social-os
+
+# Start all services (database, agent, UI)
+./start.sh
+```
+
+This will automatically:
+- Start PostgreSQL database with Docker
+- Run database migrations
+- Start the AI agent backend (port 8123)
+- Start the UI frontend (port 3000)
+
+All services run in the background. Visit `http://localhost:3000` to see the application.
+
+**Managing Services:**
+```bash
+./status.sh  # Check status of all services
+./stop.sh    # Stop all services
+tail -f logs/agent.log  # View agent logs
+tail -f logs/ui.log     # View UI logs
+```
+
+**Important:** Edit these files with your OpenAI API key:
+- `agent/.env` - Add your `OPENAI_API_KEY`
+- `ui/.env.local` - Add your `OPENAI_API_KEY` and configure `DATABASE_URL`
+
+### Manual Setup
+
+If you prefer to run services manually:
+
+#### 1. Clone and Install
 
 ```bash
 # Navigate to the social-os directory
@@ -91,8 +127,15 @@ cd ../agent
 pnpm install
 ```
 
-### 2. Database Setup
+#### 2. Database Setup
 
+**Option A: Using Docker (Recommended)**
+```bash
+cd examples/social-os
+docker-compose up -d postgres
+```
+
+**Option B: Manual PostgreSQL**
 ```bash
 # Create PostgreSQL database
 createdb social_os_dev
@@ -100,9 +143,10 @@ createdb social_os_dev
 # Run migrations
 cd database
 psql -d social_os_dev -f migrations/001_init_schema.sql
+psql -d social_os_dev -f migrations/002_add_admin_auth.sql
 ```
 
-### 3. Environment Configuration
+#### 3. Environment Configuration
 
 Create `.env.local` in the `ui` directory:
 
@@ -124,15 +168,17 @@ Create `.env` in the `agent` directory:
 OPENAI_API_KEY=your_openai_api_key_here
 ```
 
-### 4. Run the Application
+#### 4. Run the Application
 
-Start the agent backend (in `agent/` directory):
+**Terminal 1 - Start the agent backend:**
 ```bash
+cd agent
 pnpm dev
 ```
 
-Start the UI frontend (in `ui/` directory):
+**Terminal 2 - Start the UI frontend:**
 ```bash
+cd ui
 pnpm dev
 ```
 

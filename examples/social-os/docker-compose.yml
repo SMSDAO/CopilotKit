@@ -14,7 +14,9 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./database/migrations:/docker-entrypoint-initdb.d
+      # Mount migrations in order - they will be executed alphabetically
+      - ./database/migrations/001_init_schema.sql:/docker-entrypoint-initdb.d/001_init_schema.sql
+      - ./database/migrations/002_add_admin_auth.sql:/docker-entrypoint-initdb.d/002_add_admin_auth.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s

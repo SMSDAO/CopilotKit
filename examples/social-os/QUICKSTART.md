@@ -15,6 +15,49 @@ Before you begin, ensure you have:
 
 The fastest way to get started:
 
+### Automated Setup (Recommended)
+
+```bash
+cd examples/social-os
+./start.sh
+```
+
+This single command will:
+1. Start PostgreSQL with Docker
+2. Apply database migrations automatically
+3. Start the AI agent backend in the background
+4. Start the UI frontend in the background
+
+**Before running, configure your environment:**
+
+```bash
+# Configure agent
+cd agent
+cp .env.example .env
+# Edit .env and add your OPENAI_API_KEY
+
+# Configure UI
+cd ../ui
+cp .env.example .env.local
+# Edit .env.local and add your OPENAI_API_KEY
+```
+
+**After starting:**
+- Visit `http://localhost:3000` 🎉
+- Admin panel: `http://localhost:3000/admin`
+
+**Managing services:**
+```bash
+./status.sh  # Check what's running
+./stop.sh    # Stop all services
+tail -f logs/agent.log  # View agent logs
+tail -f logs/ui.log     # View UI logs
+```
+
+### Manual Setup (Alternative)
+
+If you prefer step-by-step control:
+
 ### Step 1: Start Database
 
 ```bash
