@@ -17,9 +17,9 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "@copilotkit/sdk-js": "^1.5.13",
+    "@copilotkit/sdk-js": "^1.51.3",
     "@langchain/anthropic": "^0.3.8",
-    "@langchain/core": "^0.3.18",
+    "@langchain/core": "^1.1.24",
     "@langchain/google-genai": "^0.1.4",
     "@langchain/langgraph": "^0.2.44",
     "@langchain/langgraph-cli": "^0.0.10",
