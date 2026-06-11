@@ -881,8 +881,8 @@ importers:
   utilities/eslint-config-custom:
     dependencies:
       eslint-config-next:
-        specifier: ^14.1.0
-        version: 14.2.4(eslint@8.57.0)(typescript@5.5.4)
+        specifier: ^15.0.0
+        version: 15.0.2(eslint@8.57.0)(typescript@5.5.4)
       eslint-config-prettier:
         specifier: ^9.1.0
         version: 9.1.0(eslint@8.57.0)
